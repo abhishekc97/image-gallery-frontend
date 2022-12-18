@@ -1,0 +1,10 @@
+.innerContainer {
+    background-color: white;
+    border-radius: 0px 0px 60px 60px;
+    height: 70vh;
+}
+
+.container {
+    background: #0B66EF;
+    height:100vh;
+}

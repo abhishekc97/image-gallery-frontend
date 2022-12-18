@@ -1,0 +1,14 @@
+.container {
+    background-color: black;
+    border-radius: 5px;
+    padding: 10px;
+    color: white;
+    width: fit-content;
+}
+.filter > select {
+    color: #0B66EF;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    outline: none;
+}
