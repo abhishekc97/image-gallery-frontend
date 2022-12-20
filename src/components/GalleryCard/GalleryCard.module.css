@@ -1,7 +1,18 @@
-.container {
-    background-color: black;
-    border-radius: 5px;
-    padding: 10px;
-    color: white;
-    width: fit-content;
+.heartIcon {
+    height: 30px;
+    width: 32px;
+    background: #E60000;
+}
+
+.imageCard {
+    border-radius: 15px;
+    width: 250px;
+    height: 320px;
+}
+
+.imageGrid {
+    display: flex;
+    justify-content: center;
+    gap: 38px;
+    margin: 20px;
 }

@@ -10,8 +10,8 @@ function Home() {
     return ( 
     <div className = {styles.container}>  
         <div className = {styles.innerContainer}>
-        <Category/>
-        <GalleryCard />
+            <Category/>
+            <GalleryCard />
         </div>
             <ShuffleButton />
         </div>

@@ -11,23 +11,35 @@ function Category() {
     let { categoryName } = useParams();
 
     // for demo of the categoryList.map
-    const [categoryList, setCategoryList] = useState(["category-1", "category-2", "category-3", "category-4"]); // "category-1", "category-2", "category-3", "category-4"
+    const [categoryList, setCategoryList] = useState([
+        {"name": "category-1"},
+        {"name": "category-2"},
+        {"name": "category-3"},
+        {"name": "category-4"}
+    ]);
 
-    // loading categories with the api call
+    // loading categories with the dicover api call
     async function fetchCategories() {
         const result = await getCategories();
         setCategoryList(result);
-        
-        // find the find element from result and set the default route to the first category from the result
-        if (!categoryName) {
-            const defaultCategory = categoryList[0];
-            const defaultCategoryName = defaultCategory.name;
-            navigate(`/${defaultCategoryName}`);
+        /* if (result) {
+            if (!categoryName) {
+                const defaultCategory = categoryList[0];
+                const defaultCategoryName = defaultCategory.name;
+                navigate(`/${defaultCategoryName}`);
+            }
         }
+        */
+        // find the find element from result and set the default route to the first category from the result
+        // if (!categoryName) {
+        //     const defaultCategory = categoryList[0];
+        //     const defaultCategoryName = defaultCategory.name;
+        //     navigate(`/${defaultCategoryName}`);
+        // }
     }
     useEffect(() => {
         fetchCategories()
-    }, []);
+    },[]);
 
     function navigateToCategory(categoryName) {
         navigate(`/${categoryName}`)
@@ -35,13 +47,17 @@ function Category() {
 
     return ( 
         <div className={styles.containerWrapper}>
-            <div>
+            <>
                 { categoryList.map((category, index) => ( 
-                    <div onClick={() => 
+                    <div key={index}
+                        onClick={() => 
                         {navigateToCategory(category.name)}} 
-                    className={styles.category}> {category.name} </div>)) 
+                        className={styles.category} > 
+                            {category.name} 
+                    </div> 
+                    )) 
                 }
-            </div>
+            </>
             <div className={styles.filterContainer}>
                 <Filter />
             </div>
