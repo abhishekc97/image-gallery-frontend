@@ -26,6 +26,7 @@ export async function getGalleryImages(categoryName, sortByDate = "", filterByLi
 // add image to favorite api
 export async function likeImage(imageId) {
     const reqUrl = `http://127.0.0.1:3000/api/discover/like/${imageId}`;
+    console.log(reqUrl);
     const results = await axios.get(reqUrl);
 
     if(results.data) {

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import styles from "./GalleryCard.module.css";
 
-import { getGalleryImages } from "../../api/discover";
+import { getGalleryImages, likeImage } from "../../api/discover";
 
 function GalleryCard() {
     
@@ -24,16 +24,7 @@ function GalleryCard() {
     console.log(urlDateQueryString, urlLikeQueryString);
 
     // state for galleryList, when images are fetched by the api call
-    const [galleryList, setGalleryList] = useState([
-    
-    ]);
-
-    /**
-     * {
-        imageLink: "https://images.unsplash.com/photo-1671210681777-4b7d2377ef69?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
-        isLikes: false,
-        name: "Image",
-    } */ 
+    const [galleryList, setGalleryList] = useState([ ]);
 
     // function to make the discover API call and fetch the images based on category and filters
     async function fetchGallery(categoryName, sortByDate, filterByLikes, shuffle) {
@@ -46,9 +37,16 @@ function GalleryCard() {
     // using useeffect for fetching data each time page loads or states change
     useEffect( () => {
         fetchGallery(categoryName, sortByDate, filterByLikes )
-    }, [categoryName, sortByDate, filterByLikes]);
+    }, [categoryName, sortByDate, filterByLikes ]);
     
-    const [isClick, setClick] = useState(false);
+    /** like an image */
+ 
+    function handleLikeClick(id) {
+        console.log(id);
+        // call like api
+        const results = likeImage(id);
+        // forceUpdate();
+    }
 
     return ( 
         <div className={styles.imageGrid}>
@@ -56,7 +54,19 @@ function GalleryCard() {
             { galleryList.map((image, index) => (
                 <div key={index}>
                     <img className={styles.imageCard} src={ image.imageLink } alt="" />
-                </div>  
+                    <table>
+                        <tr>
+                            <td>
+                                <h2 onClick={() => handleLikeClick(image._id) }>
+                                    {image.likes ? "💖": "🤍"}
+                                </h2>
+                            </td>
+                            <td><h3>{ image.name }</h3></td>
+                        </tr>
+                    </table>
+                    
+                </div>
+                
                 )) 
             }
             

@@ -22,14 +22,15 @@ function Category() {
     async function fetchCategories() {
         const result = await getCategories();
         setCategoryList(result);
-        /* if (result) {
+        
+        if (result) {
             if (!categoryName) {
                 const defaultCategory = categoryList[0];
                 const defaultCategoryName = defaultCategory.name;
                 navigate(`/${defaultCategoryName}`);
             }
         }
-        */
+        
         // find the find element from result and set the default route to the first category from the result
         // if (!categoryName) {
         //     const defaultCategory = categoryList[0];

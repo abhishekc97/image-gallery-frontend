@@ -1,3 +1,15 @@
+table{
+    border-collapse: separate;
+    border-spacing: 0 5px;
+    padding-top: 5px;
+}
+
+td {
+  width: 150px;
+  text-align: center;
+  padding: 0px;
+}
+
 .heartIcon {
     height: 30px;
     width: 32px;
