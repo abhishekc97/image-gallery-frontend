@@ -4,11 +4,12 @@ import styles from "./GalleryCard.module.css";
 
 import { getGalleryImages, likeImage } from "../../api/discover";
 
-function GalleryCard() {
+function GalleryCard({buttonRef}) {
     
     // variables to set based on input
     let sortByDate;
     let filterByLikes;
+    let shuffle;
 
     const {categoryName}  = useParams();
     // get the URL params from search window
@@ -16,38 +17,42 @@ function GalleryCard() {
     // get individual query strings from URL params
     const urlDateQueryString = urlParams.get("sortByDate");
     const urlLikeQueryString = urlParams.get("filterByLikes");
-    console.log("sortByDate:", urlDateQueryString);
-    console.log("filterByLikes:", urlLikeQueryString);
+    // console.log("sortByDate:", urlDateQueryString);
+    // console.log("filterByLikes:", urlLikeQueryString);
+    const urlShuffleString = urlParams.get("shuffle");
+    console.log("shuffle:",urlShuffleString);
 
     if(urlDateQueryString) sortByDate = urlDateQueryString;
     else if(urlLikeQueryString) filterByLikes = 1; // integer 1 because datatype of the image model for likes is Number and not boolean, else we get cast error
-    console.log(urlDateQueryString, urlLikeQueryString);
+    else if(urlShuffleString) shuffle = urlShuffleString;
+    // console.log(urlDateQueryString, urlLikeQueryString);
+    // let shuffle = 0;
 
     // state for galleryList, when images are fetched by the api call
     const [galleryList, setGalleryList] = useState([ ]);
 
-    // function to make the discover API call and fetch the images based on category and filters
+    /** function to make the discover API call and fetch the images based on category and filters */ 
     async function fetchGallery(categoryName, sortByDate, filterByLikes, shuffle) {
-
         const results = await getGalleryImages(categoryName, sortByDate, filterByLikes, shuffle);
-
         setGalleryList(results);
     }
 
-    // using useeffect for fetching data each time page loads or states change
+    /** using useeffect for fetching data each time page loads or states change */ 
     useEffect( () => {
-        fetchGallery(categoryName, sortByDate, filterByLikes )
-    }, [categoryName, sortByDate, filterByLikes ]);
+        fetchGallery(categoryName, sortByDate, filterByLikes );
+
+    }, [categoryName, sortByDate, filterByLikes,shuffle ]);
     
     /** like an image */
  
-    function handleLikeClick(id) {
-        console.log(id);
+    async function handleLikeClick(id) {
         // call like api
-        const results = likeImage(id);
-        // forceUpdate();
+        await likeImage(id);
+        fetchGallery(categoryName, sortByDate, filterByLikes, shuffle);
     }
 
+    // const buttonInstance = buttonRef.current.getInstance();
+    
     return ( 
         <div className={styles.imageGrid}>
             

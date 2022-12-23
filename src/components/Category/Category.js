@@ -30,13 +30,6 @@ function Category() {
                 navigate(`/${defaultCategoryName}`);
             }
         }
-        
-        // find the find element from result and set the default route to the first category from the result
-        // if (!categoryName) {
-        //     const defaultCategory = categoryList[0];
-        //     const defaultCategoryName = defaultCategory.name;
-        //     navigate(`/${defaultCategoryName}`);
-        // }
     }
     useEffect(() => {
         fetchCategories()
@@ -46,16 +39,16 @@ function Category() {
         navigate(`/${categoryName}`)
     }
 
+
     return ( 
-        <div className={styles.containerWrapper}>
+        <div className={styles.categoryContainerWrapper}>
             <>
                 { categoryList.map((category, index) => ( 
                     <div key={index}
-                        onClick={() => 
-                        {navigateToCategory(category.name)}} 
+                        onClick={ () => {navigateToCategory(category.name)} } 
                         className={styles.category} > 
                             {category.name} 
-                    </div> 
+                    </div>
                     )) 
                 }
             </>
